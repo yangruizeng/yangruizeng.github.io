@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -87,15 +87,17 @@
 
 
 
-<meta name="description" content="我要学好python">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yangruizeng">
-<meta property="og:url" content="http://yoursite.com/categories/Python/index.html">
+<meta name="description" content="在RedHat6.2系统中，启动过程中报错：12init: prefdm main process -terminated with status 1init: prefdm respawning too fast,stopped">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux无法进入系统报init: prefdm错误的解决方法">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/Linux无法进入系统报init-prefdm错误的解决方法/index.html">
 <meta property="og:site_name" content="yangruizeng">
-<meta property="og:description" content="我要学好python">
+<meta property="og:description" content="在RedHat6.2系统中，启动过程中报错：12init: prefdm main process -terminated with status 1init: prefdm respawning too fast,stopped">
+<meta property="og:updated_time" content="2017-06-28T03:33:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yangruizeng">
-<meta name="twitter:description" content="我要学好python">
+<meta name="twitter:title" content="Linux无法进入系统报init: prefdm错误的解决方法">
+<meta name="twitter:description" content="在RedHat6.2系统中，启动过程中报错：12init: prefdm main process -terminated with status 1init: prefdm respawning too fast,stopped">
 
 
 
@@ -123,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Python/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/28/Linux无法进入系统报init-prefdm错误的解决方法/"/>
 
 
 
 
 
-  <title> 分类: Python | yangruizeng </title>
+  <title> Linux无法进入系统报init: prefdm错误的解决方法 | yangruizeng </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,47 +270,158 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Python
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/04/18/字符串和编码/" itemprop="url">
-              
-                <span itemprop="name">字符串和编码</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-18T00:42:44+08:00"
-              content="2017-04-18" >
-          04-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/Linux无法进入系统报init-prefdm错误的解决方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangruizeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://octodex.github.com/images/baracktocat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangruizeng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux无法进入系统报init: prefdm错误的解决方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-28T11:31:48+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在RedHat6.2系统中，启动过程中报错：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">init: prefdm main process -terminated with status 1</div><div class="line">init: prefdm respawning too fast,stopped</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>然后无法继续启动。prefdm路径：/etc/X11/prefdm，负责启动图形界面。解决方法：<br>重启服务器进入single单用户模式，修改inittab为3后，重启可以进入文字模式，或者直接init 3进入，重新安装hal服务后再重新启动即可进入正常启动图形模式。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/27/mutt-msmtp实现linux发送邮件附件/" rel="prev" title="mutt + msmtp实现linux发送邮件附件">
+                mutt + msmtp实现linux发送邮件附件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -316,6 +429,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -543,6 +660,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
