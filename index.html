@@ -280,6 +280,359 @@
   
 
   <article class="post post-type-categories " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/saltstack学习笔记-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangruizeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://octodex.github.com/images/baracktocat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangruizeng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/01/22/saltstack学习笔记-md/" itemprop="url">
+                  saltstack学习笔记.md
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T15:33:22+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/saltstack/" itemprop="url" rel="index">
+                    <span itemprop="name">saltstack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="targeting-minion"><a href="#targeting-minion" class="headerlink" title="targeting minion"></a>targeting minion</h2><h3 id="glob"><a href="#glob" class="headerlink" title="glob"></a>glob</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">salt &apos;*&apos; test.ping</div><div class="line">salt \* test.ping</div></pre></td></tr></table></figure>
+<h3 id="perl语言兼容正则表达式："><a href="#perl语言兼容正则表达式：" class="headerlink" title="perl语言兼容正则表达式："></a>perl语言兼容正则表达式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">短选项： -E</div><div class="line">长选项： --pcre</div><div class="line"></div><div class="line">salt -E &apos;^[mM]in.[eou]n&apos; test.ping</div></pre></td></tr></table></figure>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">短选项：-L</div><div class="line">长选项：--list</div><div class="line"></div><div class="line">salt -L web1,web2,db1,proxy1 test.ping</div></pre></td></tr></table></figure>
+<h3 id="Subnet"><a href="#Subnet" class="headerlink" title="Subnet"></a>Subnet</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">短选项：-S</div><div class="line">长选项： --ipcidr</div><div class="line">匹配整个网段的</div><div class="line">salt -S 192.168.0.42 test.ping</div><div class="line">salt -S 192.168.0.0/16 test.ping</div></pre></td></tr></table></figure>
+<h3 id="Grain"><a href="#Grain" class="headerlink" title="Grain"></a>Grain</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">短选项：-G</div><div class="line">长选项：--grain</div><div class="line">salt可以通过操作系统、CPU架构以及自定义的信息等机器特征进行target Minion。</div><div class="line">Grain是键值对的方式，所以需要制定键值，通过冒号分隔</div><div class="line">salt -G &apos;os:Ubuntu&apos; test.ping</div><div class="line">salt -G &apos;os_family:Debian&apos; test.ping</div><div class="line">一些Grain是多级字典，可以通过冒号进行分隔字典中的每一级键名</div><div class="line">salt -G &apos;ip_interface:eth0:192.168.1.11&apos;</div></pre></td></tr></table></figure>
+<h3 id="Grain-PCRE"><a href="#Grain-PCRE" class="headerlink" title="Grain PCRE"></a>Grain PCRE</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">长选项：--grain-pcre</div><div class="line">基于grain的pcre匹配</div><div class="line">salt --grain-pcre &apos;os:red(hat|flag)&apos; test.ping</div></pre></td></tr></table></figure>
+<h3 id="Pillar"><a href="#Pillar" class="headerlink" title="Pillar"></a>Pillar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">短选项：-I</div><div class="line">长选项： --pillar</div><div class="line">salt支持通过pillar数据进行匹配</div><div class="line">salt -I &apos;my_var:my_val&apos; test.ping</div></pre></td></tr></table></figure>
+<h3 id="混合（Compound）"><a href="#混合（Compound）" class="headerlink" title="混合（Compound）"></a>混合（Compound）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">短选项：-C</div><div class="line">长选项：--compound</div><div class="line">混合target允许用户在一个shell命令中指定多种target类型。默认使用glob，想指定其他target类型，则需要再前面追加上类型简写和@符号。</div><div class="line"></div><div class="line">如想匹配的系统是ubuntu，pillar中role的设置是web，且属于192.168.100.0/24子网的Minion。</div><div class="line">salt -C &apos;G@os:Ubuntu,I@role:web,S@192.168.100.0/24&apos; test.ping</div><div class="line"></div><div class="line">布尔符号中的与（and）、或（or）及非（not）也可以在target类型中使用，如：</div><div class="line">salt -C &apos;min* or *ion&apos; test.ping</div><div class="line">salt -C &apos;web* or *qa,G@os:Arch&apos; test.ping</div></pre></td></tr></table></figure>
+<h3 id="节点组-Nodegroup"><a href="#节点组-Nodegroup" class="headerlink" title="节点组(Nodegroup)"></a>节点组(Nodegroup)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">短选项：-N</div><div class="line">长选项：--nodegroup</div><div class="line">节点组是在salt内部使用的（所有的targeting终将创建一个动态节点组），从命令行中显式地指定节点组十分常用。在命令行使用前必须先再salt master的配置文件中以target列表进行定义（使用混合匹配语法），如在配置文件中进行如下定义：</div><div class="line">nodegroups:</div><div class="line">	webdev: &apos;I@role:web,G@cluster:dev&apos;</div><div class="line">	webqa: &apos;I@role:web,G@cluster:qa&apos;</div><div class="line">	webprod: &apos;I@role:web,G@cluster:prod&apos;</div><div class="line">节点组定义完毕并重载master配置文件后，可以通过salt进行target：</div><div class="line">salt -N webdev test.ping</div></pre></td></tr></table></figure>
+<h2 id="运行模块方法"><a href="#运行模块方法" class="headerlink" title="运行模块方法"></a>运行模块方法</h2><p>pkg.install   安装软件包<br>pkg.remove    卸载软件包<br>file.replace  类似于sed的功能</p>
+<h2 id="SLS文件树"><a href="#SLS文件树" class="headerlink" title="SLS文件树"></a>SLS文件树</h2><p>top文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">        base:</div><div class="line">			&apos;*&apos;:</div><div class="line">				- common</div><div class="line">				- vim</div><div class="line">		qa:</div><div class="line">			&apos;*_qa&apos;:</div><div class="line">				- jenkins</div><div class="line">		web:</div><div class="line">			&apos;web_*&apos;:</div><div class="line">				- apache2</div><div class="line">```  </div><div class="line">	</div><div class="line">声明了三个环境，分别是base、qa和web，base环境指定所有minion执行common和vim State，qa环境指定所有以_qa结尾的ID的Minion执行jenkins State。web环境指定所有以web_开头的ID的Minion执行apache2 State。    </div><div class="line">  </div><div class="line">SLS目录组织	</div><div class="line"></div><div class="line">apache2.sls写法对应两种格式:</div><div class="line"></div><div class="line">* apache2/sls/init.sls</div><div class="line">* apache2.sls</div><div class="line">执行时会先找apache2.sls如果不存在，再找apache2/sls/init.sls，SLS文件可以有多层深度，每一层中间用句点表示.，最好是目录少一些，方便SLS快速查找。</div><div class="line"></div><div class="line">使用State进行配置管理</div><div class="line"></div><div class="line">/srv/salt目录下的文件用于定义Salt State。这是配置管理格式，用来强制Minion处于某一状态（State）：X软件包（package）需要安装，文件（file）Y格式正确，服务（service）Z开机自启并处于运行状态等。如下：</div></pre></td></tr></table></figure>
+<pre><code>apache2:
+  pkg:
+    - installed
+  service:
+    - running
+  file:
+    - managed
+    - name: /etc/apache2/apache2.conf
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**include块：**</div><div class="line">	通过include可以在一个SLS文件引用其他SLS文件：</div><div class="line">		include:</div><div class="line">		  - base</div><div class="line">		  - emacs</div><div class="line">    这个例子中，SLS文件将会把include块内容替换为base.sls（或base/init.sls）和emacs.sls(emacs/init.sls)</div><div class="line">    SLS文件中不能包含已经存在于include的SLS文件中的ID。</div><div class="line"></div><div class="line">include本身作为一个顶级声明，只能在一个文件中出现一次。</div><div class="line"></div><div class="line">**require:**</div><div class="line"></div><div class="line">```	</div><div class="line">    webservice:</div><div class="line">		service.running:</div><div class="line">			- name: apache2</div><div class="line">			- require:</div><div class="line">				- pkg: web_package</div><div class="line">	web_package:</div><div class="line">		pkg.installed:</div><div class="line">			- name: apache2</div></pre></td></tr></table></figure>
+<p>正常情况，State SLS都是按顺序从前到后执行的，除非在声明时指定了require，如果指定了require，则会首先执行require指定的内容，再执行这个。</p>
+<p><strong>reuire:</strong><br>    require是最基本的requisite，它表示state会等待列表中定义的每一项state都成功执行后才会执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">apache2:</div><div class="line">  pkg:</div><div class="line">       - installed</div><div class="line">	- require</div><div class="line">	  - file: apache2</div><div class="line">  service:</div><div class="line">    - running</div><div class="line">    - require:</div><div class="line">      - pkg: apache2</div><div class="line">     file:</div><div class="line">       - managed</div><div class="line">       - name: /etc/apache2/apache2.conf</div><div class="line">       - source: salt://apache2/apache2.conf</div></pre></td></tr></table></figure>
+<p>在上边例子中，文件会首先复制到minion上，然后进行软件包的安装，之后再进行服务的启动。</p>
+<p><strong>watch</strong><br>    当配置文件发生了变更，apache2服务需要重启才行，这时需要watch，强制State在发现它watch的项目发生了变更时执行一个指定的动作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">apache2:</div><div class="line">  ..SNIP...</div><div class="line">  service:</div><div class="line">    - running</div><div class="line">    - require:</div><div class="line">      - pkg: apache2</div><div class="line">    - watch:</div><div class="line">      - file: apache2</div><div class="line">  ...SNIP...</div></pre></td></tr></table></figure>
+<p>当一个服务通过watch触发时，如果服务此时是关闭的，则Salt会尝试启动它。如果服务已经在运行中，则Salt会根据情况尝试service.reload,service.full_restart service.restart</p>
+<p><strong>use:</strong><br>    salt中是可以在一个State中声明一些默认值的，然后其他的State可以继承(inherit)这些默认值。最常见的就是一个State文件通过include去引用其它文件。如果State中使用的项已经被重新声明了，那么就会被新值覆盖。否则该项在使用时并不会进行任何修改。use类似于include，也是从其他SLS文件中继承过来，但是不会继承requisite部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">	apache2_conf:</div><div class="line">	  file:</div><div class="line">	    - managed</div><div class="line">	    - name: /etc/apache2/apache2.conf</div><div class="line">	    - user: root</div><div class="line">	    - group: root</div><div class="line">	    - mode: 755</div><div class="line">	    - watch_in:</div><div class="line">	      - service: apache2</div><div class="line">    mysql_conf:</div><div class="line">      file:</div><div class="line">        - managed</div><div class="line">          - name: /etc/mysql/my.cnf</div><div class="line">          - use:</div><div class="line">            - file: apache2_conf</div><div class="line">          - watch_in:</div><div class="line">            - service: mysql</div><div class="line">```  </div><div class="line">mysql_conf State会安全地从apache2_conf State中继承user、group及mode，并且不会触发apache重启。</div><div class="line"></div><div class="line">**prereq**</div><div class="line">	在某些情况下，有可能State并不需要运行，只有在另一个State预计会变更时才需要运行。例如一个web应用使用apache来提供服务，当产品服务器上的代码库需要变更时，Apache应该先关闭，以免代码没部署完时会有错误。</div><div class="line">	prereq requisite，就是针对这样的需求设计的。当一个State使用prereq时，Salt会先对prereq中指定关联的项目运行test模式来预计是否会进行变更。如果预计有变更，则Salt会用prereg标记该State需要执行。</div></pre></td></tr></table></figure>
+<pre><code>apache2:
+  service:
+    - running
+    - watch:
+      - file: codebase
+codebase:
+  file:
+    - recurse
+...SNIP...
+shutdown_apache:
+  service:
+    - dead
+    - name: apache2
+    - prereq:
+      - file: codebase
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**扩展SLS文件**</div><div class="line"></div><div class="line">除了include块之外，State SLS文件还可以使用extend块来修改include块引入的SLS文件的内容。使用extend代码块和使用requisite类似，但是还有一些明显的不同。use或use_in requisite会复制默认值到另外的State中或从其他State上复制默认值到本State中，extend块则只能对引入的State进行修改。</div><div class="line"></div><div class="line">```shell</div><div class="line"># cat /srv/generic_apache/init.sls</div><div class="line">apache2_conf:</div><div class="line">  file:</div><div class="line">  - managed:</div><div class="line">    - name: /etc/apache2/apache2.conf</div><div class="line">    - source: salt://apache2/apache2.conf</div><div class="line"></div><div class="line">另一个文件中：</div><div class="line">include:</div><div class="line">  - generic_apache</div><div class="line">extend:</div><div class="line">  apache2_conf:</div><div class="line">    - file:</div><div class="line">    - source: salt://django/apache2.conf</div><div class="line"></div><div class="line">另一个文件：</div><div class="line">include:</div><div class="line">  - generic_apache</div><div class="line">extend:</div><div class="line">  apache2_conf:</div><div class="line">    - file:</div><div class="line">      - source: salt://django/apache2.conf</div><div class="line">```  </div><div class="line">## Grain、Pillar及模板</div><div class="line"></div><div class="line">Grain定义在指定的Minion上，Pillar定义在Master上。Grain常用于提供静态数据，Pillar更倾向于动态数据。</div><div class="line"></div><div class="line"></div><div class="line">### Pillar</div><div class="line"></div><div class="line">pillar的top.sls文件在配置和功能上和State的top.sls文件一致，首先声明一个环境，然后是一个target，最后target需要使用的SLS文件列表。</div><div class="line"></div><div class="line">	base:</div><div class="line">	  &apos;*&apos;:</div><div class="line">	    - bash</div><div class="line">pillar只存储一些静态数据，因此文件内容相对简单一些。</div><div class="line"></div><div class="line">例：</div><div class="line"></div><div class="line">```shell</div><div class="line">	skel_dir: /etc/skel/</div><div class="line">	role: web</div><div class="line">	web_content:</div><div class="line">	  images:</div><div class="line">	    - jpg</div><div class="line">	    - png</div><div class="line">	    - gif</div><div class="line">	  scripts:</div><div class="line">	    - css</div><div class="line">	    - js</div></pre></td></tr></table></figure>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><p>默认先用jinja渲染，再使用yaml。如果想改变渲染方式，可以在模板文件首行指定#!py  #!mako|json先用mako渲染，在用json渲染</p>
+<p>/etc/salt/master中默认配置 renderer： yaml_jinja，如果想修改默认配置，可以在此修改。</p>
+<p>也可以在State中使用模板时指定渲染引擎：</p>
+<pre><code class="shell">apache2_conf:
+  file:
+    - managed
+    - name: /etc/apache2/apache2.conf
+    - source: salt://apache2/apache2.conf
+    - template: jinja
+</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/saltstack-state用例-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangruizeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://octodex.github.com/images/baracktocat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangruizeng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/01/22/saltstack-state用例-md/" itemprop="url">
+                  saltstack-state用例.md
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T15:33:13+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/saltstack/" itemprop="url" rel="index">
+                    <span itemprop="name">saltstack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/home/work/logs/&#123;&#123; project &#125;&#125;:</div><div class="line">  file.directory:</div><div class="line">    - order: 1</div><div class="line">    - makedirs: True</div><div class="line">    - user: work</div><div class="line">    - group: work</div><div class="line">    - dir_mode: 755</div></pre></td></tr></table></figure>
+<h2 id="unless用法："><a href="#unless用法：" class="headerlink" title="unless用法："></a>unless用法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; project &#125;&#125;-file:</div><div class="line">  file.managed:</div><div class="line">    - order: 3</div><div class="line">    - name: /home/work/www/code/&#123;&#123; project&#125;&#125;/&#123;&#123; version &#125;&#125;.tar.gz</div><div class="line">    - source: salt://webapps/&#123;&#123; project&#125;&#125;/files/code/&#123;&#123; env &#125;&#125;/&#123;&#123; version &#125;&#125;.tar.gz</div><div class="line">    - user: work</div><div class="line">    - group: work</div><div class="line">    - unless: test -f /home/work/www/code/&#123;&#123; project&#125;&#125;/&#123;&#123; version &#125;&#125;.tar.gz  # 只有结果为False，才执行state</div></pre></td></tr></table></figure>
+<h2 id="onlyif用法："><a href="#onlyif用法：" class="headerlink" title="onlyif用法："></a>onlyif用法：</h2><p>与unless正好相反，结果返回True才会执行。</p>
+<h2 id="watch用法"><a href="#watch用法" class="headerlink" title="watch用法"></a>watch用法</h2><p>里面任何一个状态变化（有 change），就触发。 并不是所有 state 都支持 watch。（service state 能支持。）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 可以让某个 service 在配置文件被修改时，自动执行 reload / restart</div><div class="line"># （Salt 会直接调用 restart，除非设置 reload: True）</div><div class="line">ntpd:</div><div class="line">  service.running:</div><div class="line">    - watch:</div><div class="line">      - file: /etc/ntp.conf</div></pre></td></tr></table></figure>
+<h2 id="require："><a href="#require：" class="headerlink" title="require："></a>require：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vim:</div><div class="line">  pkg.installed</div><div class="line"></div><div class="line">/etc/vimrc:</div><div class="line">  file.managed:</div><div class="line">    - source: salt://edit/vimrc</div><div class="line">    - require:</div><div class="line">      - pkg: vim</div></pre></td></tr></table></figure>
+<p>在这个例子中， /etc/vimrc 文件并不会被placed(managed)，直到 vim 软件包已安装</p>
+<h2 id="cmd-run"><a href="#cmd-run" class="headerlink" title="cmd.run"></a>cmd.run</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cmd.run:</div><div class="line">  - order: 4</div><div class="line">  - name: tar -zxf &#123;&#123; version &#125;&#125;.tar.gz &amp;&amp; chown -R work:work &#123;&#123; version &#125;&#125; &amp;&amp; rm &#123;&#123; version &#125;&#125;.tar.gz</div><div class="line">  - cwd: /home/work/www/code/&#123;&#123; project&#125;&#125;</div><div class="line">  - unless: test -d /home/work/www/code/&#123;&#123; project&#125;&#125;/&#123;&#123; version &#125;&#125;</div></pre></td></tr></table></figure>
+<p>name：shell真正执行的命令，cwd是命令在哪个目录下执行</p>
+<h2 id="创建软连接"><a href="#创建软连接" class="headerlink" title="创建软连接"></a>创建软连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/tmp/haha:</div><div class="line">  file.symlink:</div><div class="line">    - makedirs: True</div><div class="line">    - force: True</div><div class="line">    - user: work</div><div class="line">    - group: work</div><div class="line">    - target: /proc</div></pre></td></tr></table></figure>
+<p>force会覆盖已经存在的软连接<br>target：是软连接的源路径</p>
+<h2 id="cmd-run-1"><a href="#cmd-run-1" class="headerlink" title="cmd.run"></a>cmd.run</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">php-fpm-service:</div><div class="line">  cmd.wait:</div><div class="line">    - order: 7</div><div class="line">    - name: kill -USR2  `cat /home/work/php/var/run/php-fpm.pid`</div><div class="line">    - watch:</div><div class="line">      - file: /home/work/www/run/&#123;&#123; project &#125;&#125;</div></pre></td></tr></table></figure>
+<p>cmd.wait不能自己用需要配合watch来使用，watch监控文件发生改变后，执行cmd.wait函数定义的内容，比如这个例子就是运行命令kill -USER2等等。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/19/python流程控制while、if、for/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1007,7 +1360,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1018,7 +1371,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1029,7 +1382,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1099,8 +1452,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
