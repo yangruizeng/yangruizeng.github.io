@@ -1,0 +1,907 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="监控," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="环境内核： n3.10.0-693.11.6.el7.x86_64系统： CentOS Linux release 7.4.1708 (Core)falcon： open-falcon-v0.2.x.tar.gzgo：    go1.9.2.linux-amd64.tar.gz">
+<meta name="keywords" content="监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openfalcon安装及各组件介绍">
+<meta property="og:url" content="http://yoursite.com/2018/01/29/openfalcon安装及各组件介绍/index.html">
+<meta property="og:site_name" content="yangruizeng">
+<meta property="og:description" content="环境内核： n3.10.0-693.11.6.el7.x86_64系统： CentOS Linux release 7.4.1708 (Core)falcon： open-falcon-v0.2.x.tar.gzgo：    go1.9.2.linux-amd64.tar.gz">
+<meta property="og:updated_time" content="2018-01-29T02:53:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="openfalcon安装及各组件介绍">
+<meta name="twitter:description" content="环境内核： n3.10.0-693.11.6.el7.x86_64系统： CentOS Linux release 7.4.1708 (Core)falcon： open-falcon-v0.2.x.tar.gzgo：    go1.9.2.linux-amd64.tar.gz">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/29/openfalcon安装及各组件介绍/"/>
+
+
+
+
+
+  <title> openfalcon安装及各组件介绍 | yangruizeng </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yangruizeng</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我要学好python</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-categories " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/29/openfalcon安装及各组件介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangruizeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://octodex.github.com/images/baracktocat.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yangruizeng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                openfalcon安装及各组件介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T10:48:58+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/监控/" itemprop="url" rel="index">
+                    <span itemprop="name">监控</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>内核： n3.10.0-693.11.6.el7.x86_64<br>系统： CentOS Linux release 7.4.1708 (Core)<br>falcon： open-falcon-v0.2.x.tar.gz<br>go：    go1.9.2.linux-amd64.tar.gz</p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装redis和mysql"><a href="#安装redis和mysql" class="headerlink" title="安装redis和mysql"></a>安装redis和mysql</h2><pre><code>yum install -y redis
+yum install -y mariadb-server
+</code></pre><h2 id="导入表结构"><a href="#导入表结构" class="headerlink" title="导入表结构"></a>导入表结构</h2><pre><code>cd /tmp/ &amp;&amp; git clone https://github.com/open-falcon/falcon-plus.git 
+cd /tmp/falcon-plus/scripts/mysql/db_schema/
+mysql -h 127.0.0.1 -u root -p &lt; 1_uic-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 2_portal-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 3_dashboard-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 4_graph-db-schema.sql
+mysql -h 127.0.0.1 -u root -p &lt; 5_alarms-db-schema.sql
+rm -rf /tmp/falcon-plus/
+</code></pre><h2 id="安装golang环境"><a href="#安装golang环境" class="headerlink" title="安装golang环境"></a>安装golang环境</h2><pre><code>tar -C /usr/local -xzf go1.9.2.linux-amd64.tar.gz
+echo &apos;export GOROOT=/usr/local/go&apos; &gt;&gt; /etc/profile
+echo &apos;export GOPATH=/root/workspace&apos; &gt;&gt; /etc/profile
+echo &apos;export PATH=$PATH:/usr/local/go/bin
+&apos; &gt;&gt; /etc/profile
+</code></pre><h2 id="从源码编译"><a href="#从源码编译" class="headerlink" title="从源码编译"></a>从源码编译</h2><pre><code class="shell">mkdir -p $GOPATH/src/github.com/open-falcon
+cd $GOPATH/src/github.com/open-falcon
+git clone https://github.com/open-falcon/falcon-plus.git
+cd falcon-plus/
+make all modules
+make pack
+##这时候，你会在当前目录下面，得到open-falcon-v0.2.x.tar.gz的压缩包，就表示已经编译和打包成功了。
+</code></pre>
+<h2 id="创建工作目录"><a href="#创建工作目录" class="headerlink" title="创建工作目录"></a>创建工作目录</h2><pre><code class="shell">export FALCON_HOME=/home/work
+export WORKSPACE=$FALCON_HOME/open-falcon
+mkdir -p $WORKSPACE
+</code></pre>
+<h2 id="解压二进制包"><a href="#解压二进制包" class="headerlink" title="解压二进制包"></a>解压二进制包</h2><pre><code class="shell">tar xf open-falcon-v0.2.1.tar.gz -C $WORKSPACE
+</code></pre>
+<h2 id="根据实际情况修改配置文件中的账号密码"><a href="#根据实际情况修改配置文件中的账号密码" class="headerlink" title="根据实际情况修改配置文件中的账号密码"></a>根据实际情况修改配置文件中的账号密码</h2><pre><code class="shell">cd $WORKSPACE
+grep -Ilr 3306  ./ | xargs -n1 -- sed -i &apos;s/root:password/自己的用户:自己的密码/g&apos;)
+</code></pre>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code class="shell">cd $WORKSPACE
+./open-falcon start
+
+# 检查所有模块的启动状况
+./open-falcon check
+</code></pre>
+<h2 id="安装dashboard"><a href="#安装dashboard" class="headerlink" title="安装dashboard"></a>安装dashboard</h2><pre><code class="shell">export HOME=/home/work
+export WORKSPACE=$HOME/open-falcon
+mkdir -p $WORKSPACE
+cd $WORKSPACE
+# 克隆代码
+cd $WORKSPACE
+git clone https://github.com/open-falcon/dashboard.git
+
+# 安装依赖包
+yum install -y python-virtualenv
+yum install -y python-devel
+yum install -y openldap-devel
+yum install -y mysql-devel
+yum groupinstall &quot;Development tools&quot;
+
+
+cd $WORKSPACE/dashboard/
+virtualenv ./env
+
+./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
+
+# 修改配置
+dashboard的配置文件为： &apos;rrd/config.py&apos;，请根据实际情况修改
+## API_ADDR 表示后端api组件的地址
+API_ADDR = &quot;http://127.0.0.1:8080/api/v1&quot; 
+
+## 根据实际情况，修改PORTAL_DB_*, 默认用户名为root，默认密码为&quot;&quot;
+## 根据实际情况，修改ALARM_DB_*, 默认用户名为root，默认密码为&quot;&quot;
+
+
+# 启动
+bash control start
+
+# 停止
+bash control stop
+
+# 查看日志
+bash control tail
+</code></pre>
+<h2 id="组件介绍"><a href="#组件介绍" class="headerlink" title="组件介绍"></a>组件介绍</h2><ul>
+<li>falcon-graph<ul>
+<li>graph是存储绘图数据的组件。graph组件 接收transfer组件推送上来的监控数据，同时处理api组件的查询请求、返回绘图数据。</li>
+<li>部署完graph组件后，请修改transfer和api的配置，使这两个组件可以寻址到graph。</li>
+</ul>
+</li>
+<li>falcon-hbs<ul>
+<li>agent发送心跳信息给HBS的时候，会把hostname、ip、agent version、plugin version等信息告诉HBS，HBS负责更新host表。</li>
+<li>HBS去获取所有的报警策略缓存在内存里，然后Judge去向HBS请求。</li>
+<li>如果你先部署了agent，后部署的hbs，那咱们部署完hbs之后需要回去修改agent的配置，把agent配置中的heartbeat部分enabled设置为true，addr设置为hbs的rpc地址。如果hbs的配置文件维持默认，rpc端口就是6030，http端口是6031，agent中应该配置为hbs的rpc端口，小心别弄错了。</li>
+</ul>
+</li>
+<li>falcon-judge<ul>
+<li>Judge用于告警判断，agent将数据push给Transfer，Transfer不但会转发给Graph组件来绘图，还会转发给Judge用于判断是否触发告警。</li>
+<li>因为监控系统数据量比较大，一台机器显然是搞不定的，所以必须要有个数据分片方案。Transfer通过一致性哈希来分片，每个Judge就只需要处理一小部分数据就可以了。所以判断告警的功能不能放在直接的数据接收端：Transfer，而应该放到Transfer后面的组件里。</li>
+</ul>
+</li>
+<li>falcon-transfer<ul>
+<li>transfer是数据转发服务。它接收agent上报的数据，然后按照哈希规则进行数据分片、并将分片后的数据分别push给graph&amp;judge等组件。</li>
+<li>部署完成transfer组件后，请修改agent的配置，使其指向正确的transfer地址。在安装完graph和judge后，请修改transfer的相应配置、使其能够正确寻址到这两个组件。</li>
+</ul>
+</li>
+<li>falcon-nodata<ul>
+<li>nodata用于检测监控数据的上报异常。nodata和实时报警judge模块协同工作，过程为: 配置了nodata的采集项超时未上报数据，nodata生成一条默认的模拟数据；用户配置相应的报警策略，收到mock数据就产生报警。采集项上报异常检测，作为judge模块的一个必要补充，能够使judge的实时报警功能更加可靠、完善。</li>
+</ul>
+</li>
+<li>falcon-aggregator<ul>
+<li>集群聚合模块。聚合某集群下的所有机器的某个指标的值，提供一种集群视角的监控体验。</li>
+</ul>
+</li>
+<li>falcon-agent<ul>
+<li>agent用于采集机器负载监控指标，比如cpu.idle、load.1min、disk.io.util等等，每隔60秒push给<strong>Transfer</strong>。agent与Transfer建立了长连接，数据发送速度比较快，agent提供了一个http接口/v1/push用于接收用户手工push的一些数据，然后通过长连接迅速转发给Transfer</li>
+</ul>
+</li>
+<li>falcon-gateway</li>
+<li>falcon-api<ul>
+<li>api组件，提供统一的restAPI操作接口。比如：api组件接收查询请求，根据一致性哈希算法去相应的graph实例查询不同metric的数据，然后汇总拿到的数据，最后统一返回给用户。</li>
+<li>部署完成api组件后，请修改dashboard组件的配置、使其能够正确寻址到api组件。</li>
+<li>请确保api组件的graph列表 与 transfer的配置 一致。</li>
+</ul>
+</li>
+<li>falcon-alarm<ul>
+<li>alarm模块是处理报警event的，judge产生的报警event写入redis，alarm从redis读取处理，并进行不同渠道的发送。</li>
+<li>alarm是个单点。对于未恢复的告警是放到alarm的内存中的，alarm还需要做报警合并，故而alarm只能部署一个实例。需要对alarm的存活做好监控。</li>
+<li>如果某个核心服务挂了，可能会造成大面积报警，为了减少报警短信数量，我们做了报警合并功能。把报警信息写入dashboard模块，然后dashboard返回一个url地址给alarm，alarm将这个url链接发给用户，这样用户只要收到一条短信（里边是个url地址），点击url进去就是多条报警内容。</li>
+<li>highQueues中配置的几个event队列中的事件是不会做报警合并的，因为那些是高优先级的报警，报警合并只是针对lowQueues中的事件。如果所有的事件都不想做报警合并，就把所有的event队列都配置到highQueues中即可</li>
+</ul>
+</li>
+</ul>
+<h2 id="监控实现"><a href="#监控实现" class="headerlink" title="监控实现"></a>监控实现</h2><h3 id="端口监控"><a href="#端口监控" class="headerlink" title="端口监控"></a>端口监控</h3><pre><code class="shell">net.port.listen/port=22
+net.port.listen/port=80
+net.port.listen/port=443
+</code></pre>
+<h3 id="进程监控"><a href="#进程监控" class="headerlink" title="进程监控"></a>进程监控</h3><pre><code class="shell">proc.num/name=ntpd 
+# 这里的name是cat /proc/ntpd对应的进程id/status中的name字段
+</code></pre>
+<p>怎么知道我的策略是否同步成功了？</p>
+<p>A: curl -s “judge-hostname:port/strategy/host.test.01/cpu.idle”, 这个是查看 机器host.test.01 &amp; metric为 cpu.idle 对应的策略。</p>
+<p>触发器函数：<a href="http://book.open-falcon.org/zh_0_2/usage/func.html" target="_blank" rel="external">http://book.open-falcon.org/zh_0_2/usage/func.html</a><br>基本上all(#3)就够用了，其他先不用记，先知道有就行。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/监控/" rel="tag"># 监控</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/22/saltstack学习笔记-md/" rel="prev" title="saltstack学习笔记.md">
+                saltstack学习笔记.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://octodex.github.com/images/baracktocat.jpg"
+               alt="yangruizeng" />
+          <p class="site-author-name" itemprop="name">yangruizeng</p>
+           
+              <p class="site-description motion-element" itemprop="description">我要学好python</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yangruizeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.cnblogs.com/yangruizeng" title="博客园" target="_blank">博客园</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.peierlong.com/" title="java大神" target="_blank">java大神</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装redis和mysql"><span class="nav-number">2.1.</span> <span class="nav-text">安装redis和mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入表结构"><span class="nav-number">2.2.</span> <span class="nav-text">导入表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装golang环境"><span class="nav-number">2.3.</span> <span class="nav-text">安装golang环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码编译"><span class="nav-number">2.4.</span> <span class="nav-text">从源码编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建工作目录"><span class="nav-number">2.5.</span> <span class="nav-text">创建工作目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压二进制包"><span class="nav-number">2.6.</span> <span class="nav-text">解压二进制包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据实际情况修改配置文件中的账号密码"><span class="nav-number">2.7.</span> <span class="nav-text">根据实际情况修改配置文件中的账号密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">2.8.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装dashboard"><span class="nav-number">2.9.</span> <span class="nav-text">安装dashboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件介绍"><span class="nav-number">2.10.</span> <span class="nav-text">组件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控实现"><span class="nav-number">2.11.</span> <span class="nav-text">监控实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口监控"><span class="nav-number">2.11.1.</span> <span class="nav-text">端口监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程监控"><span class="nav-number">2.11.2.</span> <span class="nav-text">进程监控</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangruizeng</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

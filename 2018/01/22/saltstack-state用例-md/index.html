@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="创建目录1234567/home/work/logs/&amp;#123;&amp;#123; project &amp;#125;&amp;#125;:  file.directory:    - order: 1    - makedirs: True    - user: work    - group: work    - dir_mode: 755 unless用法：12345678&amp;#123;&amp;#123; proje">
+<meta name="description" content="创建目录1234567/home/work/logs/&amp;#123;&amp;#123; project &amp;#125;&amp;#125;:  file.directory:    - order: 1    - makedirs: True    - user: work    - group: work    - dir_mode: 755">
 <meta name="keywords" content="saltstack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="saltstack-state用例.md">
 <meta property="og:url" content="http://yoursite.com/2018/01/22/saltstack-state用例-md/index.html">
 <meta property="og:site_name" content="yangruizeng">
-<meta property="og:description" content="创建目录1234567/home/work/logs/&amp;#123;&amp;#123; project &amp;#125;&amp;#125;:  file.directory:    - order: 1    - makedirs: True    - user: work    - group: work    - dir_mode: 755 unless用法：12345678&amp;#123;&amp;#123; proje">
-<meta property="og:updated_time" content="2018-01-22T07:35:25.000Z">
+<meta property="og:description" content="创建目录1234567/home/work/logs/&amp;#123;&amp;#123; project &amp;#125;&amp;#125;:  file.directory:    - order: 1    - makedirs: True    - user: work    - group: work    - dir_mode: 755">
+<meta property="og:updated_time" content="2018-01-22T08:13:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="saltstack-state用例.md">
-<meta name="twitter:description" content="创建目录1234567/home/work/logs/&amp;#123;&amp;#123; project &amp;#125;&amp;#125;:  file.directory:    - order: 1    - makedirs: True    - user: work    - group: work    - dir_mode: 755 unless用法：12345678&amp;#123;&amp;#123; proje">
+<meta name="twitter:description" content="创建目录1234567/home/work/logs/&amp;#123;&amp;#123; project &amp;#125;&amp;#125;:  file.directory:    - order: 1    - makedirs: True    - user: work    - group: work    - dir_mode: 755">
 
 
 
@@ -375,6 +375,7 @@
 
       
         <h2 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/home/work/logs/&#123;&#123; project &#125;&#125;:</div><div class="line">  file.directory:</div><div class="line">    - order: 1</div><div class="line">    - makedirs: True</div><div class="line">    - user: work</div><div class="line">    - group: work</div><div class="line">    - dir_mode: 755</div></pre></td></tr></table></figure>
+ <a id="more"></a> 
 <h2 id="unless用法："><a href="#unless用法：" class="headerlink" title="unless用法："></a>unless用法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; project &#125;&#125;-file:</div><div class="line">  file.managed:</div><div class="line">    - order: 3</div><div class="line">    - name: /home/work/www/code/&#123;&#123; project&#125;&#125;/&#123;&#123; version &#125;&#125;.tar.gz</div><div class="line">    - source: salt://webapps/&#123;&#123; project&#125;&#125;/files/code/&#123;&#123; env &#125;&#125;/&#123;&#123; version &#125;&#125;.tar.gz</div><div class="line">    - user: work</div><div class="line">    - group: work</div><div class="line">    - unless: test -f /home/work/www/code/&#123;&#123; project&#125;&#125;/&#123;&#123; version &#125;&#125;.tar.gz  # 只有结果为False，才执行state</div></pre></td></tr></table></figure>
 <h2 id="onlyif用法："><a href="#onlyif用法：" class="headerlink" title="onlyif用法："></a>onlyif用法：</h2><p>与unless正好相反，结果返回True才会执行。</p>
 <h2 id="watch用法"><a href="#watch用法" class="headerlink" title="watch用法"></a>watch用法</h2><p>里面任何一个状态变化（有 change），就触发。 并不是所有 state 都支持 watch。（service state 能支持。）</p>
@@ -513,7 +514,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -524,7 +525,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -535,7 +536,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
